@@ -20,7 +20,7 @@ const ItemDetail = ({marca, nombre, descripcion, img, precio, stock}) => {
         flexDirection="column"
         bg="gray.300"
         color="brown"
-        fontSize={largerThan800 ? '2xl' : 'xl'}
+        fontSize={largerThan800 ? '2xl' : 'l'}
         p={['10px', '30px']}
         textAlign="center"
       >
@@ -43,7 +43,7 @@ const ItemDetail = ({marca, nombre, descripcion, img, precio, stock}) => {
         height="400px"
         flexDirection="column"
         color="black"
-        fontSize={largerThan800 ? 'xl' : 'l'}
+        fontSize={largerThan800 ? 'xl' : 's'}
         textAlign="center"
       >
         <Box mb="20px">{descripcion}</Box>
