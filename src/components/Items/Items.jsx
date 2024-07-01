@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Image, Stack, Text, ButtonGroup, Button, Divider, Heading, Center, Flex } from '@chakra-ui/react'
 import { Link } from 'react-router-dom';
 
-const Item = ({id, nombre, marca, img, precio}) => {
+const Item = ({id, nombre, marca, img, precio, stock, descripcion}) => {
 
   return (
 

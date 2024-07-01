@@ -10,7 +10,7 @@ import {
   } from '@chakra-ui/react'
 import { TiArrowDownOutline } from "react-icons/ti";
 import { Link } from 'react-router-dom';
-import logo from "/public/imagenes/logo.png"
+import logo from "/imagenes/logo.png";
 
 const NavBar = () => {
   return (

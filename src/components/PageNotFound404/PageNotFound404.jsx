@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Spacer, Square, Text, Box, Image, Center } from '@chakra-ui/react'
-import e404 from "../../../public/imagenes/error-404.jpg"
+import e404 from "/imagenes/error-404.jpg"
 
 function PageNotFound404() {
   return (
