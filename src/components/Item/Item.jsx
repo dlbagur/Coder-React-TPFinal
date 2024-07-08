@@ -21,13 +21,13 @@ const Item = ({nombre, marca, precio, stock, img, id}) => {
         <Stack mt='6' spacing='3'>
           <Heading size='md' align={'center'}>{nombre}</Heading>
           <Heading size='sm' align={'center'}>{marca} </Heading>
-          <Text color='blue.400' fontSize='2xl' align={'center'}>${precio}</Text>
-          <Text color='blue.600' fontSize='2xl' align={'center'}>stock: {stock}</Text>
+          <Text color='red.800' fontSize='2xl' align={'center'}>${precio}</Text>
+          <Text color='blue.700' fontSize='xl' align={'center'}>stock: {stock}</Text>
         </Stack>
       </CardBody>
-      <Center height='2px' bg={'#243F4D'}>
+      <Center height='2px' bg={'#c7cfd4'}>
       </Center>
-      <Divider color={'#243F4D'}  />
+      <Divider color={'#c7cfd4'}  />
       <CardFooter>
         <Flex spacing='2' justifyContent={'center'} align={'center'} w={'100%'}>
           <Button 

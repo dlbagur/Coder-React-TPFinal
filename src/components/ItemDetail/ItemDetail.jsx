@@ -74,22 +74,23 @@ const ItemDetail = ({id, variedad, marca, nombre, descripcion, img, precio, stoc
                 <Flex justify={'space-between'} align={'center'} w={'100%'}>
                     <Button 
                         bg={'#AD886E'} 
-                        color={'#243F4D'}
+                        color={'#4a1007'}
                         w={'100%'}
                         h={'5vh'}
                         mt={11}
                         borderRadius={0}
-                        _hover={{ bg: '#ECCDB7', color: '#243F4D' }}>
+                        border={'#000'}
+                        _hover={{ bg: '#693546', color: '#fff' }}>
                                 <Link to='/cart'>Ir al carrito</Link> 
                     </Button>
                     <Button 
                         bg={'#AD886E'} 
-                        color={'#243F4D'}
+                        color={'#4a1007'}
                         w={'100%'}
                         h={'5vh'}
                         mt={11}
                         borderRadius={0}
-                        _hover={{ bg: '#ECCDB7', color: '#243F4D' }}>
+                        _hover={{ bg: '#693546', color: '#fff' }}>
                         <Link to='/'>Seguir comprando</Link> 
                     </Button>
                 </Flex>

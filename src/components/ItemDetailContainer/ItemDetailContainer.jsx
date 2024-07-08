@@ -32,7 +32,7 @@ const ItemDetailContainer = () => {
               {
                 loading ? 
                 <Flex justify={'center'} align={'center'} h={'90vh'}>
-                    <ScaleLoader color="#36d7b7" />            
+                    <ScaleLoader color="#970805" />            
                 </Flex>
                 : 
                 <>

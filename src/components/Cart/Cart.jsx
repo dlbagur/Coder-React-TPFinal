@@ -18,52 +18,50 @@ const Cart = () => {
             </Flex>
     )
     } else {
-
-  return (
-    <TableContainer>
-        <Table variant='striped' colorScheme='teal'>
-            <Thead>
-                <Tr fontWeight={'bold'} color={'#000'} background={'#FFF'}>
-                    <Th>Marca</Th>
-                    <Th>Nombre</Th>
-                    <Th>Cantidad</Th>
-                    <Th>Precio</Th>
-                    <Th>Subtotal</Th>
-                    <Th></Th>
-                </Tr>
-            </Thead>
-            <Tbody>
-                {
-                    cart.map((prod) => (
-                        <Tr key={prod.id}>
-                            <Td>{prod.marca}</Td>
-                            <Td>{prod.nombre}</Td>
-                            <Td>{prod.quantity}</Td>
-                            <Td>{prod.precio}</Td>
-                            <Td>{prod.precio * prod.quantity}</Td>
-                            <Td>
-                                <Button onClick={()=>removeItem(prod.id)}>
-                                    <RiDeleteBin5Line />
-                                </Button>
-                            </Td>
+        return (
+            <TableContainer>
+                <Table variant='striped' colorScheme='red'>
+                    <Thead color={'#000'} background={'#f5b0ae'}>
+                        <Tr size='xl' fontWeight={'bold'} >
+                            <Th>Marca</Th>
+                            <Th>Nombre</Th>
+                            <Th>Cantidad</Th>
+                            <Th isNumeric>Precio</Th>
+                            <Th isNumeric>Subtotal</Th>
+                            <Th></Th>
                         </Tr>
-            ))
-            }
-            </Tbody>
-            <Tfoot>
-                <Tr>
-                    <Th>
-                       <Link to="/checkout" paddingLeft={"10%"}><Button background={'#8BB6BD'} fontWeight={'bold'}>Finalizar compra </Button></Link>
-                    </Th>            
-                    <Th color={'#fff'} paddingLeft={"20%"}><Heading>Total: {getTotal()}</Heading></Th>
-                    <Th paddingLeft={"30%"}><Button onClick={() => clearCart()} fontWeight={'bold'}>Vaciar carrito </Button></Th>
-                </Tr>
-            </Tfoot>
-        </Table>
-    </TableContainer>
-  )
-}
-
+                    </Thead>
+                    <Tbody>
+                        {
+                            cart.map((prod) => (
+                                <Tr key={prod.id}>
+                                    <Td>{prod.marca}</Td>
+                                    <Td>{prod.nombre}</Td>
+                                    <Td>{prod.quantity}</Td>
+                                    <Td isNumeric>{prod.precio}</Td>
+                                    <Td isNumeric>{prod.precio * prod.quantity}</Td>
+                                    <Td>
+                                        <Button onClick={()=>removeItem(prod.id)}>
+                                            <RiDeleteBin5Line />
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                    ))
+                    }
+                    </Tbody>
+                    <Tfoot>
+                        <Tr>
+                            <Th paddingLeft={"20%"}>
+                            <Link to="/checkout"><Button fontWeight={'bold'}>Finalizar compra </Button></Link>
+                            </Th>
+                            <Th paddingLeft={"20%"} color={'#5c1f16'}><Heading>Total: {getTotal()}</Heading></Th>
+                            <Th paddingLeft={"20%"}><Button onClick={() => clearCart()} fontWeight={'bold'}>Vaciar carrito </Button></Th>
+                        </Tr>
+                    </Tfoot>
+                </Table>
+            </TableContainer>
+        )
+    }
 }
 
 export default Cart
