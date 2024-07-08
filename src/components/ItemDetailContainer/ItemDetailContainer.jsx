@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { getProductById } from '../../data/asyncMock'
-import {ScaleLoader} from 'react-spinners'
-import { Flex, Heading } from '@chakra-ui/react'
+import { useNavigate, useParams } from 'react-router-dom'
 import ItemDetail from '../ItemDetail/ItemDetail'
+import { Flex } from '@chakra-ui/react'
+import { ScaleLoader } from 'react-spinners'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../config/firebase'
 
-const ItemDetailContainer = ({title}) => {
+const ItemDetailContainer = () => {
     const [ producto, setProducto ] = useState({})
     const [ loading, setLoading ] = useState(true)
     const { productId } = useParams()
@@ -13,34 +14,35 @@ const ItemDetailContainer = ({title}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getProductById(productId)
-            .then((data) => {
-                if (!data) {
-                    navigate('/*')
-                } else {
-                    setProducto(data)
-                }
-            })
-            .catch((error) => console.log(error))
-            .finally(() => setLoading(false))
+        const getData = async () => {
+            const queryRef = doc(db, 'productos', productId)
+            const response = await getDoc(queryRef)
+            const newItem = {
+                ...response.data(),
+                id: response.id
+            }
+            setProducto(newItem)
+            setLoading(false)
+        }
+        getData()
     },[])
 
     return (
-        <Flex
-        direction={'column'} justify={'center'} align={'center'}>
-        <Heading color={'#800080'} mt={10}>
-          {title}
-        </Heading>
-            {
-                loading ?
-                <Flex justify={'center'} align={'center'} h={'50hv'}>
-                    <ScaleLoader color="#36d7b7" />
+        <>
+              {
+                loading ? 
+                <Flex justify={'center'} align={'center'} h={'90vh'}>
+                    <ScaleLoader color="#36d7b7" />            
                 </Flex>
-                :
+                : 
+                <>
+                <Flex justify={'center'} align={'center'} h={'70vh'}>
                 <ItemDetail {...producto} />
+                </Flex>
+                </>
             }
-        </Flex>
-  )
+        </>
+    )
 }
 
 export default ItemDetailContainer

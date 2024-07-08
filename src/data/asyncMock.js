@@ -160,29 +160,3 @@ export const productos = [
     stock : 100
   },
 ];
-
-export const getProducts = () => {
-  return new Promise((res) => {
-    setTimeout(() => {
-      res(productos);
-    }, 2000);
-  });
-};
-
-export const getProductsByCategory = (categoria) => {
-  return new Promise((res) => {
-    const vinosFiltrados = productos.filter((prod) => prod.variedad === categoria);
-    setTimeout(() => {
-      res(vinosFiltrados);
-    }, 2000);
-  });
-};
-
-export const getProductById = (id) => {
-  return new Promise((res) => {
-    const productoFiltrado = productos.find((prod) => prod.id === parseInt(id));
-    setTimeout(() => {
-      res(productoFiltrado);
-    }, 2000);
-  });
-};

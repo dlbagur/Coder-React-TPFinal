@@ -19,7 +19,7 @@ export const CartContextProvider = ({ children }) => {
             })
             setCart(updatedCart)
         }else {
-        setCart([...cart, newItem])
+            setCart([...cart, newItem])
         }
     }
     const isInCart = (id) => {
@@ -39,7 +39,6 @@ export const CartContextProvider = ({ children }) => {
         return cart.reduce((acc, item) => acc + item.quantity, 0)
     }
 
-
   return (
     <Context.Provider 
         value={{
@@ -58,4 +57,3 @@ export const CartContextProvider = ({ children }) => {
 }
 
 export default Context
-

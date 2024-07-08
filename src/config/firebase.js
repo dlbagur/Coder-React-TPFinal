@@ -1,19 +1,20 @@
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { productos } from "../data/asyncMock";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBBuIlA914bnyodjRfhHomnv8lK4ye74jY",
-    authDomain: "coder-react-tp2.firebaseapp.com",
-    projectId: "coder-react-tp2",
-    storageBucket: "coder-react-tp2.appspot.com",
-    messagingSenderId: "964763874697",
-    appId: "1:964763874697:web:fcfb5e3f41c998e7901d58"
-    // measurementId: "G-F4XHX03WL4"
-  };
-  
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+  apiKey: "AIzaSyC2OgHBU_SWdAFvcWWuwFsLbdaN7RXqiYw",
+  authDomain: "tienda-vinos-tpf.firebaseapp.com",
+  projectId: "tienda-vinos-tpf",
+  storageBucket: "tienda-vinos-tpf.appspot.com",
+  messagingSenderId: "877145678207",
+  appId: "1:877145678207:web:24981d35a44f8f05b4fa4a"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

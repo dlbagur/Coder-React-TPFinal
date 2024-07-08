@@ -1,12 +1,8 @@
 import React from 'react'
 import CartWidget from '../CartWidget/CartWidget'
 import {
-    Menu, MenuButton,
-    MenuList, MenuItem,
-    MenuItemOption, MenuGroup,
-    MenuOptionGroup, MenuDivider,
-    Box, Button, Flex, Heading, 
-    Image, Link as ChakraLink
+    Menu, MenuButton, MenuList, MenuItem, MenuItemOption, MenuGroup, MenuOptionGroup, MenuDivider,
+    Box, Button, Flex, Heading, Image, Link as ChakraLink
   } from '@chakra-ui/react'
 import { TiArrowDownOutline } from "react-icons/ti";
 import { Link } from 'react-router-dom';
@@ -15,17 +11,16 @@ import logo from "/imagenes/logo.png";
 const NavBar = () => {
   return (
     <Flex 
-        h={'10vh'} 
+        h={'11vh'} 
         w={'100%'} 
         justify={'space-between'} 
         align={'center'} 
-        backgroundColor={'#c8b6ff'}
+        backgroundColor={'#A42323'}
         >
         <ChakraLink as={Link} width={'30%'} to='/'>
-          <Image w={'15%'} src={logo}/>
+            <Image w={'15%'} src={logo}/>
         </ChakraLink>
-
-        <Menu>
+        <Menu >
             <MenuButton as={Button} rightIcon={<TiArrowDownOutline />}>
                 Nuestros Vinos
             </MenuButton>
