@@ -1,20 +1,26 @@
-import React, { useContext, useState } from 'react'
-import ItemCount from '../ItemCount/ItemCount'
+import React, { useContext, useState, useEffect } from 'react';
+import ItemCount from '../ItemCount/ItemCount';
 import { ToastContainer, toast } from 'react-toastify';
 import { 
         Card, CardHeader, CardBody, CardFooter, 
         Flex, Box, Text, Heading, Image,  
-        Avatar,  IconButton, Button,
+        Button,
         Center
-    } from '@chakra-ui/react'
+    } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import Context from '../../context/CartContext';
 
 const ItemDetail = ({id, variedad, marca, nombre, descripcion, img, precio, stock}) => {
-    const [ cantidad, setCantidad ] = useState(0)
-    const { addItem } = useContext(Context)
+    const [ cantidad, setCantidad ] = useState(0);
+    const { addItem } = useContext(Context);
+    const [disableAddButton, setDisableAddButton] = useState(stock === 0);
 
-    const onAdd = (quantity) => {   
+    const onAdd = (quantity) => {
+        if (quantity > stock) {
+            toast.error(`No hay suficiente stock para ${nombre}. Disponible: ${stock}`);
+            return;
+        }
+        
         const item = {
             id,
             nombre,
@@ -22,11 +28,16 @@ const ItemDetail = ({id, variedad, marca, nombre, descripcion, img, precio, stoc
             descripcion,
             precio,
             img
-        }
-        addItem(item, quantity)
-        toast(`Agregaste ${quantity} unidades`)
-        setCantidad(quantity)
-    }
+        };
+        
+        addItem(item, quantity);
+        toast.success(`Agregaste ${quantity} unidades`);
+        setCantidad(quantity);
+    };
+
+    useEffect(() => {
+        setDisableAddButton(stock === 0);
+    }, [stock]);
 
     return (
         <Card maxW='md' mt={20}>
@@ -54,53 +65,50 @@ const ItemDetail = ({id, variedad, marca, nombre, descripcion, img, precio, stoc
                         h='180px' 
                     />
                 </Flex>
-
             </CardHeader>
             <CardBody>
                 <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap'>
                     <Text textAlign={'center'}>{descripcion}</Text>
                 </Flex>
                 <Text fontSize='3xl' textAlign={'center'} mt={10} color={'#742323'} fontWeight={'bold'}>
-                        ${precio}
+                    ${precio}
                 </Text>
                 <Text fontSize='xl' textAlign={'center'} mt={1} color={'#742323'}>
                     Stock disponible: {stock}
                 </Text>
             </CardBody>
-
             <CardFooter w={'100%'} p={0}>
-            {
-                cantidad > 0 ?
-                <Flex justify={'space-between'} align={'center'} w={'100%'}>
-                    <Button 
-                        bg={'#AD886E'} 
-                        color={'#4a1007'}
-                        w={'100%'}
-                        h={'5vh'}
-                        mt={11}
-                        borderRadius={0}
-                        border={'#000'}
-                        _hover={{ bg: '#693546', color: '#fff' }}>
-                                <Link to='/cart'>Ir al carrito</Link> 
-                    </Button>
-                    <Button 
-                        bg={'#AD886E'} 
-                        color={'#4a1007'}
-                        w={'100%'}
-                        h={'5vh'}
-                        mt={11}
-                        borderRadius={0}
-                        _hover={{ bg: '#693546', color: '#fff' }}>
-                        <Link to='/'>Seguir comprando</Link> 
-                    </Button>
-                </Flex>
-                :
-                <ItemCount stock={stock} initialValue={1} onAdd={onAdd} />
-            }
+                {cantidad > 0 ? (
+                    <Flex justify={'space-between'} align={'center'} w={'100%'}>
+                        <Button 
+                            bg={'#AD886E'} 
+                            color={'#4a1007'}
+                            w={'100%'}
+                            h={'5vh'}
+                            mt={11}
+                            borderRadius={0}
+                            border={'#000'}
+                            _hover={{ bg: '#693546', color: '#fff' }}>
+                            <Link to='/cart'>Ir al carrito</Link> 
+                        </Button>
+                        <Button 
+                            bg={'#AD886E'} 
+                            color={'#4a1007'}
+                            w={'100%'}
+                            h={'5vh'}
+                            mt={11}
+                            borderRadius={0}
+                            _hover={{ bg: '#693546', color: '#fff' }}>
+                            <Link to='/'>Seguir comprando</Link> 
+                        </Button>
+                    </Flex>
+                ) : (
+                    <ItemCount stock={stock} initialValue={1} onAdd={onAdd} disableAddButton={disableAddButton} />
+                )}
             </CardFooter>
             <ToastContainer />
         </Card>
-    )
-}
+    );
+};
 
-export default ItemDetail
+export default ItemDetail;

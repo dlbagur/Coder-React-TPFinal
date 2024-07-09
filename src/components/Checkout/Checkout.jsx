@@ -3,7 +3,7 @@ import Context from '../../context/CartContext';
 import {
   FormControl, FormLabel, FormErrorMessage, Input, Flex, Center, Heading, Button, Box,
 } from '@chakra-ui/react';
-import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, getDoc, writeBatch } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
@@ -58,6 +58,7 @@ const Checkout = () => {
     setLoading(true);
 
     const coleccion = collection(db, 'pedidos');
+    const batch = writeBatch(db); // Initialize batch for atomic updates
     try {
       const pedidos = {
         buyer: user,
@@ -65,7 +66,38 @@ const Checkout = () => {
         total: getTotal(),
         fecha: Timestamp.now()
       };
+
+      // Verificar Stock de productos antes de crear el pedido
+      for (const item of cart) {
+        const productRef = doc(db, 'productos', item.id);
+        const productDoc = await getDoc(productRef);
+
+        if (!productDoc.exists()) {
+          throw new Error(`Producto con ID ${item.id} no existe`);
+        }
+
+        const productosFire = productDoc.data();
+        const newStock = productosFire.stock - item.quantity;
+
+        if (newStock < 0) {
+          throw new Error(`No hay suficiente stock para el producto ${productosFire.nombre}`);
+        }
+      }
+
+      // Si todo el stock es suficiente, crear el pedido y actualizar el stock
       const orderRef = await addDoc(coleccion, pedidos);
+
+      for (const item of cart) {
+        const productRef = doc(db, 'productos', item.id);
+        const productDoc = await getDoc(productRef);
+        const productosFire = productDoc.data();
+        const newStock = productosFire.stock - item.quantity;
+        
+        batch.update(productRef, { stock: newStock });
+      }
+
+      // Commit batch update
+      await batch.commit();
 
       Swal.fire({
         title: "Gracias por su compra",
@@ -77,7 +109,13 @@ const Checkout = () => {
         navigate('/');
       });
     } catch (error) {
-      console.log(error);
+      console.error("Error updating stock:", error);
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Ok"
+      });
     } finally {
       setLoading(false);
     }
