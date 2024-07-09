@@ -8,9 +8,9 @@ const CartWidget = () => {
   const { getQuantity } = useContext(Context)
 
   return (
-    <Flex m={2} justify={'center'} align={'center'}>
-      <ChakraLink as={Link} to='/cart' fontSize={'2xl'}><IoCartOutline /></ChakraLink>
+    <Flex m={2} justify={'center'} align={'center'}  fontSize={'4xl'} color={'#FFF'}>
       <span>{ getQuantity() > 0 && getQuantity() }</span>
+      <ChakraLink as={Link} to='/cart'><IoCartOutline /></ChakraLink>
     </Flex>
   )
 }

@@ -39,7 +39,7 @@ const ItemListContainer = ({ texto }) => {
 
     // Actualiza el título basado en categoryId
     if (categoryId) {
-      setTitle(`Tienda de ${categoryId}`);
+      setTitle(`Selección de ${categoryId}`);
     } else {
       setTitle('Tienda de Vinos');
     }

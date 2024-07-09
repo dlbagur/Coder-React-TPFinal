@@ -57,16 +57,15 @@ const Checkout = () => {
 
     setLoading(true);
 
-    const coleccion = collection(db, 'orders');
+    const coleccion = collection(db, 'pedidos');
     try {
-      const order = {
+      const pedidos = {
         buyer: user,
         cart: cart,
         total: getTotal(),
         fecha: Timestamp.now()
       };
-
-      const orderRef = await addDoc(coleccion, order);
+      const orderRef = await addDoc(coleccion, pedidos);
 
       Swal.fire({
         title: "Gracias por su compra",

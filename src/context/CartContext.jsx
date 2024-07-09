@@ -13,7 +13,7 @@ export const CartContextProvider = ({ children }) => {
         if(isInCart(newItem.id)) {
             const updatedCart = cart.map((prod) => {
                 if(prod.id === newItem.id) {
-                    return { ...prod, quantity: prod.quantity + newItem.quantity }
+                    return {...prod, quantity: prod.quantity + newItem.quantity}
                 }
                 return prod
             })
